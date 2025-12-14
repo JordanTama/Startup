@@ -1,0 +1,21 @@
+{
+    "name": "JordanTama.Startup",
+    "rootNamespace": "JordanTama.Startup",
+    "references": [
+        "GUID:3fcfb7625d0721343ab4d277bf84404c",
+        "GUID:f4de1bb1182456b42aa02eeb9aa6b11b",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:9961b462a7484bc48801f6b38fc600f4",
+        "GUID:03315e8903704285b280410b8690bd83",
+        "GUID:09fdf34f554b34c61a6bdbbacc2c816c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
