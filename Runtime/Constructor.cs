@@ -1,10 +1,8 @@
 using Cysharp.Threading.Tasks;
-using JordanTama.CoreServices;
 using JordanTama.StateMachine;
 using Services;
 using UnityEngine.SceneManagement;
 using UnityEngine.Scripting;
-using SettingsService = Protocol.Settings.SettingsService;
 
 namespace JordanTama.Startup
 {
@@ -32,10 +30,6 @@ namespace JordanTama.Startup
 
         private static async UniTask OnEnterAsync(string from)
         {
-            await Locator.RegisterMonoBehaviour<FocusService>();
-            await Locator.RegisterMonoBehaviour<CursorService>();
-            await Locator.RegisterAsync(new SettingsService());
-            
             await SceneManager.LoadSceneAsync(Constants.STARTUP_SCENE_NAME).ToUniTask();
             
             // Wait a frame so that anything in the startup scene can update once
