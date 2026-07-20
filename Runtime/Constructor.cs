@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using JordanTama.StateMachine;
 using Services;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Scripting;
 
@@ -58,8 +59,7 @@ namespace JordanTama.Startup
                 var info = Machine.GetStateInfo(Machine.CurrentStateId);
                 if (info.Children.Length == 0)
                 {
-                    Logging.Logger.Error(nameof(Constructor),
-                        $"No states were registered as children of {Constants.STARTUP_STATE_NAME}");
+                    Debug.LogError($"No states were registered as children of {Constants.STARTUP_STATE_NAME}");
                     return;
                 }
 

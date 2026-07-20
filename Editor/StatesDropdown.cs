@@ -5,10 +5,11 @@ using System.Reflection;
 using UnityEditor;
 using UnityEditor.Toolbars;
 using UnityEngine;
-using Logger = Logging.Logger;
+using UnityEngine.Scripting;
 
 namespace JordanTama.Startup.Editor
 {
+    [Preserve]
     public class StatesDropdown
     {
         private const string ELEMENT_PATH = "JordanTama/Select Override State";
@@ -77,7 +78,7 @@ namespace JordanTama.Startup.Editor
                 }
                 catch (Exception ex)
                 {
-                    Logger.Warning(typeof(StatesDropdown), $"Failed to instantiate {type.FullName}: {ex.Message}");
+                    Debug.LogWarning($"Failed to instantiate {type.FullName}: {ex.Message}");
                 }
             }
         }
