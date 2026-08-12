@@ -35,7 +35,7 @@ namespace JordanTama.Startup
             
             // Wait a frame so that anything in the startup scene can update once
             await UniTask.NextFrame();
-            LoadEntryPoint();
+            await LoadEntryPoint();
         }
 
         private static void OnStateChangeComplete(string from, string to)
@@ -46,11 +46,11 @@ namespace JordanTama.Startup
             Machine.OnStateChangeComplete -= OnStateChangeComplete;
             UniTask.Void(async () =>
             {
-                await Machine.ChangeStateAsync(Constants.STARTUP_STATE_NAME);
+                await Machine.ChangeState(Constants.STARTUP_STATE_NAME);
             });
         }
 
-        private static void LoadEntryPoint()
+        private static async UniTask LoadEntryPoint()
         {
             string overrideState = StartupOverride.UseState();
             
@@ -66,11 +66,7 @@ namespace JordanTama.Startup
                 overrideState = info.Children[0];
             }
             
-            var stateInfo = Machine.GetStateInfo(overrideState);
-            if (stateInfo.IsAsyncState)
-                Machine.ChangeStateAsync(overrideState).Forget();
-            else
-                Machine.ChangeState(overrideState);
+            await Machine.ChangeState(overrideState);
         }
     }
 }
