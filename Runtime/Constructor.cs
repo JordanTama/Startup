@@ -9,14 +9,14 @@ namespace JordanTama.Startup
 {
     public static class Constructor
     {
-        private static Machine machine;
+        private static Machine _machine;
 
         private static Machine Machine
         {
             get
             {
-                machine ??= Locator.Get<Machine>();
-                return machine;
+                _machine ??= Locator.Get<Machine>();
+                return _machine;
             }
         }
 
@@ -26,7 +26,7 @@ namespace JordanTama.Startup
             var startupState = new StateConstructor(Constants.STARTUP_STATE_NAME, onEnterAsync: OnEnterAsync);
             rootState.AddState(startupState);
 
-            Machine.OnStateChangeComplete += OnStateChangeComplete;
+            Machine.Initialized += () => Machine.ChangeState(Constants.STARTUP_STATE_NAME).Forget();
         }
 
         private static async UniTask OnEnterAsync(string from)
@@ -35,22 +35,10 @@ namespace JordanTama.Startup
             
             // Wait a frame so that anything in the startup scene can update once
             await UniTask.NextFrame();
-            await LoadEntryPoint();
+            LoadEntryPoint();
         }
 
-        private static void OnStateChangeComplete(string from, string to)
-        {
-            if (to != JordanTama.StateMachine.Constants.ROOT_STATE_NAME)
-                return;
-
-            Machine.OnStateChangeComplete -= OnStateChangeComplete;
-            UniTask.Void(async () =>
-            {
-                await Machine.ChangeState(Constants.STARTUP_STATE_NAME);
-            });
-        }
-
-        private static async UniTask LoadEntryPoint()
+        private static void LoadEntryPoint()
         {
             string overrideState = StartupOverride.UseState();
             
@@ -66,7 +54,7 @@ namespace JordanTama.Startup
                 overrideState = info.Children[0];
             }
             
-            await Machine.ChangeState(overrideState);
+            Machine.ChangeOrQueueState(overrideState);
         }
     }
 }
