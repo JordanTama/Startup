@@ -1,5 +1,10 @@
 {
   "name": "com.jordantama.startup",
   "version": "0.0.1",
-  "displayName": "Startup"
+  "displayName": "Startup",
+  "dependencies": {
+    "com.cysharp.unitask": "2.5.10",
+    "com.jordantama.services": "0.1.0",
+    "com.jordantama.state-machine": "0.1.0"
+  }
 }
